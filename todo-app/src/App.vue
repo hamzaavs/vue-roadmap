@@ -1,78 +1,41 @@
 <script setup>
-import {reactive, ref} from "vue";
-
-const todos = reactive([])
-const todo = ref("")
-
-const addTodo = () => {
-  todos.push({
-    id: todos.length + 1,
-    todo: todo.value
-  })
-  todo.value = ""
-}
-
-const deleteTodo = (id) => {
-  todos.splice(id, 1)
-}
-
+import CompositionAPI from "@/views/CompositionAPI.vue";
+import OptionsAPI from "@/views/OptionsAPI.vue";
 </script>
 
 <template>
   <div class="app">
-    <h1>Todo App</h1>
-    <form @submit.prevent="addTodo">
-      <input type="text" placeholder="Todos" v-model="todo">
-      <button>Add Todo</button>
-    </form>
-    <ul>
-      <li v-for="t in todos" :key="t.id">
-          <p>{{ t.todo }}</p>
-        <div class="buttons">
-          <button @click="deleteTodo">Delete</button>
-        </div>
-      </li>
-    </ul>
+    <div>
+      <h1>Composition API</h1>
+      <CompositionAPI/>
+    </div>
+    <div>
+      <h1>Options API</h1>
+      <OptionsAPI/>
+    </div>
   </div>
 </template>
 
 
-<style>
-  .app {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
-    font-family: Arial, sans-serif;
-  }
+<style scoped >
+h1 {
+  text-align: center;
+}
 
-  ul {
-    width: 40%;
-    height: 25%;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    list-style: none;
-  }
+.app {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
 
-  li {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background: #9ac999;
-    padding: 0 30px;
-    border-radius: 5px;
-  }
-
-  button {
-    padding: 10px 20px;
-    color: #3e3e46;
-    background: #88b2df;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-  }
+.app > div {
+  border: 1px solid #000;
+  padding: 20px;
+  height: 50vh;
+  border-radius: 5px;
+  overflow: auto;
+}
 </style>

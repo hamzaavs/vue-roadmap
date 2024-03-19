@@ -1,33 +1,47 @@
-<script setup>
-import {ref} from "vue";
+<script>
+import CompositionAPI from "@/views/CompositionAPI.vue";
+import OptionsAPI from "@/views/OptionsAPI.vue";
+import {defineComponent} from "vue";
 
-let count = ref(0);
+export default defineComponent({
+  components: {
+    OptionsAPI,
+    CompositionAPI,
+  }
+})
+
 </script>
 
 <template>
-  <div>
-    <button @click="count--">-</button>
-    <p>{{ count }}</p>
-    <button @click="count++">+</button>
+  <div class="app">
+    <div class="">
+      <h1>Composition API</h1>
+      <CompositionAPI/>
+    </div>
+    <div>
+      <h1>Options API</h1>
+      <OptionsAPI/>
+    </div>
   </div>
 </template>
 
-<style scoped>
-div {
-  height: 100vh;
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
-  justify-content: center;
-  align-items: center;
-}
+<style>
+  h1 {
+    text-align: center;
+  }
 
-button {
-  height: 3rem;
-  width: 3rem;
-}
+  .app {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
 
-p {
-  font-size: 2rem;
-}
+  .app > div {
+    border: 1px solid #000;
+    padding: 20px;
+    height: 75vh;
+    border-radius: 5px;
+  }
 </style>

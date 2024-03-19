@@ -1,10 +1,39 @@
 <script setup>
-import {ref} from "vue";
-
-const text = ref("")
+import CompositionAPI from "@/views/CompositionAPI.vue";
+import OptionsAPI from "@/views/OptionsAPI.vue";
 </script>
 
 <template>
-  <input type="text" v-model="text">
-  <p>{{ text }}</p>
+  <div class="app">
+    <div>
+      <h1>Composition API</h1>
+      <CompositionAPI/>
+    </div>
+    <div>
+      <h1>Options API</h1>
+      <OptionsAPI/>
+    </div>
+  </div>
 </template>
+
+
+<style>
+  h1 {
+    text-align: center;
+  }
+
+  .app {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .app > div {
+    border: 1px solid #000;
+    padding: 20px;
+    height: 50vh;
+    border-radius: 5px;
+  }
+</style>
