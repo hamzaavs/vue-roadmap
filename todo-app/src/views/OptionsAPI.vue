@@ -12,12 +12,14 @@ export default {
       this.todos.push({
         id: this.todos.length + 1,
         todo: this.todo,
+        isDeleted: false,
       });
       this.todo = "";
     },
     deleteTodo(id) {
-      this.todos.splice(id, 1);
-    },
+      const index = this.todos.findIndex((t) => t.id === id)
+      this. todos[index].isDeleted = !this.todos[index].isDeleted
+    }
   },
 }
 </script>
@@ -30,10 +32,10 @@ export default {
       <button>Add Todo</button>
     </form>
     <ul>
-      <li v-for="t in todos" :key="t.id">
+      <li v-for="t in todos" :key="t.id" :class="{ completed: t.isDeleted }">
         <p>{{ t.todo }}</p>
         <div class="buttons">
-          <button @click="deleteTodo">Delete</button>
+          <button @click="deleteTodo(t.id)">{{ t.isDeleted ? "Undelete" : "Delete" }}</button>
         </div>
       </li>
     </ul>
@@ -41,41 +43,47 @@ export default {
 </template>
 
 <style scoped>
-.app {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-  font-family: Arial, sans-serif;
-}
+  .app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+  }
 
-ul {
-  width: 40%;
-  height: 25%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  list-style: none;
-}
+  .completed {
+    text-decoration: line-through;
+    background: #5C805BF7;
+    color: #dbefd6;
+  }
 
-li {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background: #9ac999;
-  padding: 0 30px;
-  border-radius: 5px;
-}
+  ul {
+    width: 40%;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+  }
 
-button {
-  padding: 10px 20px;
-  color: #3e3e46;
-  background: #88b2df;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-}
+  li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: #9ac999;
+    padding: 0 30px;
+    border-radius: 5px;
+  }
+
+  button {
+    padding: 10px 20px;
+    color: #3e3e46;
+    background: #88b2df;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+  }
 </style>

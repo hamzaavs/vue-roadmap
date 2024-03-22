@@ -7,13 +7,15 @@ const todo = ref("")
 const addTodo = () => {
   todos.push({
     id: todos.length + 1,
-    todo: todo.value
+    todo: todo.value,
+    isDeleted: false
   })
   todo.value = ""
 }
 
 const deleteTodo = (id) => {
-  todos.splice(id, 1)
+  const index = todos.findIndex((t) => t.id === id)
+  todos[index].isDeleted = !todos[index].isDeleted
 }
 
 </script>
@@ -26,53 +28,58 @@ const deleteTodo = (id) => {
       <button>Add Todo</button>
     </form>
     <ul>
-      <li v-for="t in todos" :key="t.id">
+      <li v-for="t in todos" :key="t.id" :class="{ completed: t.isDeleted }">
         <p>{{ t.todo }}</p>
         <div class="buttons">
-          <button @click="deleteTodo">Delete</button>
+          <button @click="deleteTodo(t.id)">{{ t.isDeleted ? "Undelete" : "Delete" }}</button>
         </div>
       </li>
     </ul>
   </div>
 </template>
 
-
 <style scoped>
-.app {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 50px;
-  font-family: Arial, sans-serif;
-}
+  .app {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+  }
 
-ul {
-  width: 40%;
-  height: 25%;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  list-style: none;
-}
+  .completed {
+    text-decoration: line-through;
+    background: #5C805BF7;
+    color: #dbefd6;
+  }
 
-li {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background: #9ac999;
-  padding: 0 30px;
-  border-radius: 5px;
-}
+  ul {
+    width: 40%;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    list-style: none;
+  }
 
-button {
-  padding: 10px 20px;
-  color: #3e3e46;
-  background: #88b2df;
-  margin: 10px;
-  border: none;
-  border-radius: 5px;
-}
+  li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: #9ac999;
+    padding: 0 30px;
+    border-radius: 5px;
+  }
+
+  button {
+    padding: 10px 20px;
+    color: #3e3e46;
+    background: #88b2df;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+  }
 </style>
