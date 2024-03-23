@@ -27,14 +27,24 @@ const deleteTodo = (id) => {
       <input type="text" placeholder="Todos" v-model="todo">
       <button>Add Todo</button>
     </form>
-    <ul>
-      <li v-for="t in todos" :key="t.id" :class="{ completed: t.isDeleted }">
-        <p>{{ t.todo }}</p>
-        <div class="buttons">
-          <button @click="deleteTodo(t.id)">{{ t.isDeleted ? "Undelete" : "Delete" }}</button>
-        </div>
-      </li>
-    </ul>
+    <div>
+      <ul>
+        <li v-for="t in todos.filter((todoss) => !todoss.isDeleted)" :key="t.id">
+          <p>{{ t.todo }}</p>
+          <div class="buttons">
+            <button @click="deleteTodo(t.id)">{{ t.isDeleted ? "Undelete" : "Delete" }}</button>
+          </div>
+        </li>
+      </ul>
+      <ul>
+        <li v-for="t in todos.filter((todoss) => todoss.isDeleted)" :key="t.id" class="completed">
+          <p>{{ t.todo }}</p>
+          <div class="buttons">
+            <button @click="deleteTodo(t.id)">{{ t.isDeleted ? "Undelete" : "Delete" }}</button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -56,7 +66,7 @@ const deleteTodo = (id) => {
   }
 
   ul {
-    width: 40%;
+    width: 80%;
     height: 25%;
     display: flex;
     flex-direction: column;
